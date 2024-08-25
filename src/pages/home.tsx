@@ -1,15 +1,35 @@
-import { useState } from "react"
+import { useQuery } from "@tanstack/react-query";
+
 import Product from "../types/Product"
+import httpClient from "../utils/axiosClient"
 
 
 export default function Home() {
 
-    const [products, setProducts] = useState<Product[]>([
-        { id: '1', name: 'T-shirt', price: 50, description: 'a T-shirt'},
-        { id: '2', name: 'T-shirt 2', price: 50, description: 'a T-shirt'},
-        { id: '3', name: 'T-shirt 3', price: 50, description: 'a T-shirt'},
-    ]);
+    const { isPending, error, data, isFetching } = useQuery({
+        queryKey: ['products'], queryFn: async () => {
+            const result = await httpClient.get("products");
+            return result.data;
+        },
+    })
 
+    const products = data as Product[];
+
+    // const [products, setProducts] = useState<Product[]>([
+    //     { id: '1', name: 'T-shirt', price: 50, description: 'a T-shirt' },
+    //     { id: '2', name: 'T-shirt 2', price: 50, description: 'a T-shirt' },
+    //     { id: '3', name: 'T-shirt 3', price: 50, description: 'a T-shirt' },
+    // ]);
+
+    if (isPending) {
+        return <p>Loading...</p>
+    }
+
+    if (error) {
+        console.log(error);
+        return <p> an error occurred</p>
+    }
+    
     return <div className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
