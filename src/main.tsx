@@ -13,9 +13,6 @@ import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 
 
-const queryClient = new QueryClient();
-
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +33,11 @@ const router = createBrowserRouter([
     ]
   },
 ]);
+
+const queryClient = new QueryClient();
+
+
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
