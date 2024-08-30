@@ -1,6 +1,3 @@
-import { useState } from 'react'
-
-
 const products = [
     {
         id: 1,

@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import AuthUser from './types/AuthUser';
 import NavBar from './components/NavBar';
 
