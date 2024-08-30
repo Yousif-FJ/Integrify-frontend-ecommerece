@@ -11,6 +11,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from './pages/Home.tsx';
 import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
+import Orders from './pages/Orders.tsx';
+import ProductDetails from './pages/ProductDetails.tsx';
+import Cart from './pages/Cart.tsx';
 
 
 const router = createBrowserRouter([
@@ -23,12 +26,24 @@ const router = createBrowserRouter([
         element: <Home></Home>
       },
       {
+        path: "products/:productId",
+        element: <ProductDetails></ProductDetails>
+      },
+      {
         path: "login",
         element: <Login></Login>
       },
       {
         path: "register",
         element: <Register></Register>
+      },
+      {
+        path: "orders",
+        element: <Orders></Orders>
+      },
+      {
+        path: "cart",
+        element: <Cart></Cart>
       }
     ]
   },

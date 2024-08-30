@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom'
 import AuthUser from './types/AuthUser';
+import NavBar from './components/NavBar';
 
 
 export const AuthContext = createContext<AuthUser>({});
@@ -30,34 +31,9 @@ function App() {
     <>
       <AuthContext.Provider value={authState}>
         <AuthSetterContext.Provider value={setAuthState}>
-          <nav className='flex bg-gray-800 text-white top-0 py-3 flex-wrap justify-around bg-silver'>
-            <ul className='flex gap-[30px] text-m'>
-              <li>
-                <Link className='font-semibold' to={'/'}>
-                  e-commerce
-                </Link>
-              </li>
-              <li>
-                <Link to={'orders'}>Orders</Link>
-              </li>
-              <li>
-                <Link to={'categories'}>Categories</Link>
-              </li>
-              <li>
-                <Link to={'users'}>Users</Link>
-              </li>
-            </ul>
-
-            <ul className='flex gap-[30px] text-m'>
-              <li>
-                <Link to={'login'}>Login</Link>
-              </li>
-              <li>
-                <Link to={'register'}>Register</Link>
-              </li>
-            </ul>
-          </nav>
-          <Outlet></Outlet>
+          
+          <NavBar/>
+          <Outlet/>
 
         </AuthSetterContext.Provider>
 

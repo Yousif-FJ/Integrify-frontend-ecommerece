@@ -4,6 +4,7 @@ import Product from "../types/Product"
 import httpClient from "../utils/axiosClient"
 import { useContext } from "react";
 import { AuthContext } from "../App";
+import { Link } from "react-router-dom";
 
 
 export default function Home() {
@@ -49,10 +50,10 @@ export default function Home() {
                         <div className="mt-4 flex justify-between">
                             <div>
                                 <h3 className="text-sm text-gray-700">
-                                    <a href='/link'>
+                                    <Link to={`/products/${product.id}`}>
                                         <span aria-hidden="true" className="absolute inset-0" />
                                         {product.name}
-                                    </a>
+                                    </Link>
                                 </h3>
                                 <p className="mt-1 text-sm text-gray-500">Large</p>
                             </div>
