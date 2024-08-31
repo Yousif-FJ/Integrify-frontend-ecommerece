@@ -1,10 +1,18 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import { AuthSetterContext } from "../App";
+import LoginRequest from "../types/LoginRequest";
+import httpClient from "../utils/axiosClient"
+
 
 export default function Login() {
 
+  const navigate = useNavigate();
+
   const setAuthState = useContext(AuthSetterContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return <>
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
@@ -15,9 +23,16 @@ export default function Login() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" onSubmit={(e) => {
+        <form className="space-y-6" onSubmit={async (e) => {
           e.preventDefault();
-          setAuthState({ token: 'test' });
+          const loginRequest: LoginRequest = { email: email, password: password };
+          try {
+            const response = await httpClient.post("users/login", loginRequest);
+            setAuthState({ token: response.data });
+            navigate("/")
+          } catch {
+            alert("login failed");
+          }
         }}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -31,6 +46,7 @@ export default function Login() {
                 required
                 autoComplete="email"
                 className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
@@ -49,6 +65,7 @@ export default function Login() {
                 required
                 autoComplete="current-password"
                 className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>

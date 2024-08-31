@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 
+import { useContext } from "react";
+import { AuthContext } from "../App";
+
 export default function NavBar() {
+ 
+    const authState = useContext(AuthContext);
+
+
     return <nav className='flex bg-gray-800 text-white top-0 py-3 flex-wrap justify-around bg-silver'>
         <ul className='flex gap-[30px] text-m'>
             <li>
