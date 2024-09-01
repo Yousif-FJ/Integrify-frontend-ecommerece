@@ -3,6 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import httpClient from "../utils/axiosClient"
 import Product from "../types/Product";
+import { useContext } from "react";
+import { CartContext, CartSetterContext } from "../App";
+import CartItem from "../types/CartItem";
 
 
 export default function ProductDetails() {
@@ -17,6 +20,10 @@ export default function ProductDetails() {
     });
 
     const product = data as Product;
+
+
+    const cartState = useContext(CartContext);
+    const cartSetter = useContext(CartSetterContext);
 
     if (isPending) {
         return <p>Loading...</p>
@@ -54,7 +61,13 @@ export default function ProductDetails() {
                             </div>
                         </div>
 
-                        <form>
+                        <form onSubmit={(e)=>{
+                            e.preventDefault();
+                            //TODO increase quantity if already exist
+                            const newCartItem : CartItem = {product : product, quantity: 1};
+                            cartSetter([...cartState, newCartItem])  
+                            alert("item added");
+                        }}>
                             <button
                                 type="submit"
                                 className="mt-2 flex items-center justify-center rounded-md border
