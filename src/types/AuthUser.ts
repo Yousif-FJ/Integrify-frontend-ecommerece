@@ -2,7 +2,7 @@ import User from "./User"
 
 type AuthUser = {
     token?: string,
-    signedUse?: User   
+    user?: User   
 }
 
 export default AuthUser;
