@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthSetterContext } from "../App";
 import LoginRequest from "../types/LoginRequest";
 import httpClient from "../utils/axiosClient"
+import AuthUser from "../types/AuthUser";
 
 
 export default function Login() {
@@ -28,7 +29,8 @@ export default function Login() {
           const loginRequest: LoginRequest = { email: email, password: password };
           try {
             const response = await httpClient.post("users/login", loginRequest);
-            setAuthState({ token: response.data });
+            const data = response.data as AuthUser;
+            setAuthState(data);
             navigate("/")
           } catch {
             alert("login failed");
