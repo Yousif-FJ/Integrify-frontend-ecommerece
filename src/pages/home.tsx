@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
 import Product from "../types/Product"
-import httpClient from "../utils/axiosClient"
+import { useAxiosClient } from "../utils/axiosClient"
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
 
 export default function Home() {
-
+    const httpClient = useAxiosClient();
 
     const [search, setSearch] = useState('');
 

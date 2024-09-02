@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query";
 
-import httpClient from "../utils/axiosClient"
+import { useAxiosClient } from "../utils/axiosClient"
 import Product from "../types/Product";
 import { useContext } from "react";
 import { CartContext, CartSetterContext } from "../App";
@@ -9,6 +9,8 @@ import CartItem from "../types/CartItem";
 
 
 export default function ProductDetails() {
+
+    const httpClient = useAxiosClient();
 
     const { productId } = useParams();
 

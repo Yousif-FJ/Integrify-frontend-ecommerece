@@ -7,6 +7,11 @@ export default function NavBar() {
 
     const authState = useContext(AuthContext);
 
+    console.log(authState.user?.role);
+
+    const usersLink = authState.user?.role == "admin" ?
+                    <li><Link to={'users'}>Users</Link></li> : ''
+
     return <nav className='flex bg-gray-800 text-white top-0 py-3 flex-wrap justify-around bg-silver'>
         <ul className='flex gap-[30px] text-m'>
             <li>
@@ -17,9 +22,7 @@ export default function NavBar() {
             <li>
                 <Link to={'orders'}>Orders</Link>
             </li>
-            <li>
-                <Link to={'users'}>Users</Link>
-            </li>
+            { usersLink }
         </ul>
 
         <ul className='flex gap-[30px] text-m'>

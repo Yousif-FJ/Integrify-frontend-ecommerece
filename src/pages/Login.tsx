@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { AuthSetterContext } from "../App";
 import LoginRequest from "../types/LoginRequest";
-import httpClient from "../utils/axiosClient"
+import { useAxiosClient } from "../utils/axiosClient"
 import AuthUser from "../types/AuthUser";
 
 
 export default function Login() {
 
   const navigate = useNavigate();
+  const httpClient = useAxiosClient();
 
   const setAuthState = useContext(AuthSetterContext);
   const [email, setEmail] = useState('');

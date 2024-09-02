@@ -14,6 +14,7 @@ import Register from './pages/Register.tsx';
 import Orders from './pages/Orders.tsx';
 import ProductDetails from './pages/ProductDetails.tsx';
 import Cart from './pages/Cart.tsx';
+import Users from './pages/Users.tsx';
 
 
 const router = createBrowserRouter([
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "orders",
         element: <Orders></Orders>
+      },
+      {
+        path: "users",
+        element: <Users></Users>
       },
       {
         path: "cart",
