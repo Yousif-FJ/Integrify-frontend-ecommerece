@@ -7,7 +7,6 @@ export default function NavBar() {
 
     const authState = useContext(AuthContext);
 
-    console.log(authState.user?.role);
 
     const usersLink = authState.user?.role == "admin" ?
                     <li><Link to={'users'}>Users</Link></li> : ''

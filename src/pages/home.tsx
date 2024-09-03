@@ -24,22 +24,19 @@ export default function Home() {
     const products = data as Product[];
 
 
-    return <div className="bg-white">
-
-        <div className="mx-auto max-w-2xl px-4 py-5 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
-
-            <div className="flex">
-                <input
-                    type="text"
-                    placeholder="search"
-                    className="rounded-md border-0 py-1.5 pl-3 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-            </div>
-
-            {RenderProducts({ products, isPending, error })}
+    return <>
+        <div className="flex">
+            <input
+                type="text"
+                placeholder="search"
+                className="rounded-md border-0 py-1.5 pl-3 pr-3 text-gray-900 ring-1 ring-inset
+                     ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                onChange={(e) => setSearch(e.target.value)}
+            />
         </div>
-    </div>
+
+        {RenderProducts({ products, isPending, error })}
+    </>
 }
 
 function RenderProducts({ products, isPending, error }: { products: Product[], isPending: boolean, error: Error | null }) {

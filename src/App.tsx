@@ -57,7 +57,9 @@ function App() {
             <CartSetterContext.Provider value={setCartState}>
 
               <NavBar />
-              <Outlet />
+              <div className='mx-auto max-w-2xl px-4 py-5 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8'>
+                <Outlet />
+              </div>
 
             </CartSetterContext.Provider>
           </CartContext.Provider>
