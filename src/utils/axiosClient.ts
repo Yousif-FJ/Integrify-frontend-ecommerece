@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext } from "react";
-import { AuthContext } from "../App";
+import { AuthContext, AuthSetterContext } from "../App";
 
 const isDevelopment = import.meta.env.MODE === 'development';
 
@@ -20,10 +20,29 @@ const axiosClient = axios.create({
 
 export function useAxiosClient(){
   const authContext = useContext(AuthContext);
+  const authSetterContext = useContext(AuthSetterContext);
 
-  if (authContext.token !== undefined) {
-    axiosClient.defaults.headers.common['Authorization'] = `Bearer ${authContext.token}`;
+
+  function UpdateTokenInHeaders() {
+    if (authContext.token !== undefined) {
+      axiosClient.defaults.headers.common['Authorization'] = `Bearer ${authContext.token}`;
+    } else{
+      axiosClient.defaults.headers.common['Authorization'] = undefined;
+    }
   }
+
+  UpdateTokenInHeaders();
+
+  axiosClient.interceptors.response.use((response) =>
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    response, (error) => {
+      // Any status codes that falls outside the range of 2xx cause this function to trigger
+      if (error.response.status === 403) {
+        authSetterContext({});
+        UpdateTokenInHeaders();
+      }
+      return Promise.reject(error);
+    })
 
   return axiosClient;
 }
