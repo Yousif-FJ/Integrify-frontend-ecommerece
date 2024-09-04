@@ -65,9 +65,13 @@ export default function ProductDetails() {
 
                         <form onSubmit={(e)=>{
                             e.preventDefault();
-                            //TODO increase quantity if already exist
-                            const newCartItem : CartItem = {product : product, quantity: 1};
-                            cartSetter([...cartState, newCartItem])  
+                            const cartItem = cartState.find(item => item.product.id == product.id);
+                            if (cartItem === undefined) {
+                                const newCartItem : CartItem = {product : product, quantity: 1};
+                                cartSetter([...cartState, newCartItem])  
+                            }else{
+                                cartItem.quantity += 1;
+                            }
                             alert("item added");
                         }}>
                             <button

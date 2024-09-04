@@ -1,10 +1,15 @@
 import { useContext, useMemo } from "react"
-import { CartContext } from "../App"
+import { CartContext, CartSetterContext } from "../App"
 import { Link } from "react-router-dom";
 import CartItem from "../types/CartItem";
 
 export default function Cart() {
     const cartState = useContext(CartContext);
+    const cartStateSetter = useContext(CartSetterContext)
+
+    const removeCartItem = (productId : string) => {
+        cartStateSetter(cartState.filter(ci => ci.product.id !== productId));
+    }
 
     const cartTotal = useMemo(() =>
     {
@@ -31,7 +36,7 @@ export default function Cart() {
                         <div className="mt-8">
                             <div className="flow-root">
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                    {cartState.map((cartItem) => RenderCartItem({cartItem}))}
+                                    {cartState.map((cartItem) => RenderCartItem({cartItem, removeCartItem}))}
                                 </ul>
                             </div>
                         </div>
@@ -58,7 +63,8 @@ export default function Cart() {
     </div>
 }
 
-function RenderCartItem({cartItem}: {cartItem : CartItem}){
+function RenderCartItem({cartItem, removeCartItem} :
+     {cartItem : CartItem, removeCartItem : (productId : string) => void}){
     return <li key={cartItem.product.id} className="flex py-6">
     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
         <img
@@ -83,7 +89,9 @@ function RenderCartItem({cartItem}: {cartItem : CartItem}){
             <p className="text-gray-500">Qty {cartItem.quantity}</p>
 
             <div className="flex">
-                <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <button type="button" 
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                    onClick={() => removeCartItem(cartItem.product.id)}>
                     Remove
                 </button>
             </div>
