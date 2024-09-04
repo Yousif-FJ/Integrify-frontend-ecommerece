@@ -20,9 +20,20 @@ export default function Users() {
 function RenderUsers({ setUserBeingEdited }:
     { setUserBeingEdited: (user: User) => void }
 ) {
-
     const httpClient = useAxiosClient();
+    const queryClient = useQueryClient()
 
+
+    const deleteUserMutation = useMutation({
+        mutationFn: (userId: string) => {
+            return httpClient.delete(`users/${userId}`);
+        },
+        onSuccess: async () => {
+            queryClient.invalidateQueries({
+                queryKey: ['users']
+            })
+        }
+    });
 
     const { isPending, error, data } = useQuery({
         queryKey: ['users'], queryFn: async () => {
@@ -44,13 +55,18 @@ function RenderUsers({ setUserBeingEdited }:
 
 
     return <>
-        {users.map(user => <div key={user.id} className="grid grid-cols-4 max-w-4xl py-4 px-1 border-b-2 ">
+        {users.map(user => <div key={user.id} className="grid grid-cols-6 max-w-4xl py-4 px-1 border-b-2 ">
             <div>{user.name}</div>
-            <div>{user.email}</div>
+            <div className="col-span-2">{user.email}</div>
             <div>{user.role}</div>
             <button onClick={() => {
-                setUserBeingEdited(user);
-            }}>Edit</button>
+                setUserBeingEdited(user);}}>
+                    Edit</button>
+            <button onClick={() => {
+                if (confirm("Are you sure, you want to delete this user?")) {
+                    deleteUserMutation.mutate(user.id);
+                }}}>
+                    Delete</button>
         </div>)}
     </>
 }
