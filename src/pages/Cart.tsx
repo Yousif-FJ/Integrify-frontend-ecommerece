@@ -1,6 +1,6 @@
 import { useContext, useMemo, useState } from "react"
-import { CartContext, CartSetterContext } from "../App"
-import { Link } from "react-router-dom";
+import { AuthContext, CartContext, CartSetterContext } from "../App"
+import { Link, useNavigate } from "react-router-dom";
 import CartItem from "../types/CartItem";
 import { useMutation } from "@tanstack/react-query";
 import { useAxiosClient } from "../utils/axiosClient";
@@ -10,6 +10,8 @@ import CreateOrderRequest from "../types/CreateOrderRequest";
 export default function Cart() {
     const cartState = useContext(CartContext);
     const cartStateSetter = useContext(CartSetterContext)
+    const authState = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const [showOrderForm, setShowOrderFrom] = useState(false);
 
@@ -56,7 +58,12 @@ export default function Cart() {
                         </div>
                         <div className="mt-6">
                             <a
-                                onClick={() => {setShowOrderFrom(true)}}
+                                onClick={() => {
+                                    if (authState.token === undefined) {
+                                        navigate('/login');
+                                    }
+                                    setShowOrderFrom(true);
+                                }}
                                 href="#"
                                 className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                             >
