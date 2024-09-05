@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 import product from "./product.type"
-import { useAxiosClient } from "../utils/axiosClient"
+import { useAxiosClient } from "../utils/useAxiosClient"
 import { queryClientConfig } from "../utils/queryClientConfig";
 import RenderProducts from "./RenderProducts";
 

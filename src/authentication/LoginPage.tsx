@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { AuthSetterContext } from "../App";
 import LoginRequest from "./LoginRequest.type";
-import { useAxiosClient } from "../utils/axiosClient"
+import { useAxiosClient } from "../utils/useAxiosClient"
 import AuthUser from "./AuthUser.type";
 
 

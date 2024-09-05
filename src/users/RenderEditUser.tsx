@@ -1,6 +1,6 @@
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { useAxiosClient } from "../utils/axiosClient";
+import { useAxiosClient } from "../utils/useAxiosClient";
 import User, { UserRole } from "./User.type";
 
 export default function RenderEditUser({ user, setUserBeingEdited }:

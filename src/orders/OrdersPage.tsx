@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAxiosClient } from "../utils/axiosClient";
+import { useAxiosClient } from "../utils/useAxiosClient";
 import Order from "./Order.type";
 import { queryClientConfig } from "../utils/queryClientConfig";
 

@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { CartContext, CartSetterContext } from "../App";
 import CreateOrderRequest from "./CreateOrderRequest.type";
-import { useAxiosClient } from "../utils/axiosClient";
+import { useAxiosClient } from "../utils/useAxiosClient";
 import { queryClientConfig } from "../utils/queryClientConfig";
 
 export default function RenderCreateOrder({ showOrderForm, setShowOrderFrom } :

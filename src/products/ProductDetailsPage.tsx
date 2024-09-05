@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query";
 
-import { useAxiosClient } from "../utils/axiosClient"
+import { useAxiosClient } from "../utils/useAxiosClient"
 import product from "./product.type";
 import { useContext } from "react";
 import { CartContext, CartSetterContext } from "../App";
