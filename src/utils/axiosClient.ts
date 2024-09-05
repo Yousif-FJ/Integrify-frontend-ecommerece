@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext, AuthSetterContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const isDevelopment = import.meta.env.MODE === 'development';
 
@@ -21,6 +22,7 @@ const axiosClient = axios.create({
 export function useAxiosClient(){
   const authContext = useContext(AuthContext);
   const authSetterContext = useContext(AuthSetterContext);
+  const navigate = useNavigate();
 
 
   function UpdateTokenInHeaders() {
@@ -40,6 +42,7 @@ export function useAxiosClient(){
       if (error.response.status === 403) {
         authSetterContext({});
         UpdateTokenInHeaders();
+        navigate('/');
       }
       return Promise.reject(error);
     })
