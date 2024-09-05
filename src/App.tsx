@@ -1,9 +1,9 @@
 import { createContext, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom'
 
-import AuthUser from './types/AuthUser';
-import NavBar from './components/NavBar';
-import CartItem from './types/CartItem';
+import AuthUser from './authentication/AuthUser.type';
+import RenderNavBar from './common/RenderNavBar';
+import CartItem from './cart/CartItem.type';
 
 
 export const AuthContext = createContext<AuthUser>({});
@@ -56,7 +56,7 @@ function App() {
           <CartContext.Provider value={cartState}>
             <CartSetterContext.Provider value={setCartState}>
 
-              <NavBar />
+              <RenderNavBar />
               <div className='mx-auto max-w-2xl px-4 py-5 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8'>
                 <Outlet />
               </div>

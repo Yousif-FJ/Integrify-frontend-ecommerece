@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAxiosClient } from "../utils/axiosClient";
-import Order from "../types/Order";
+import Order from "./Order.type";
 import { queryClientConfig } from "../utils/queryClientConfig";
 
-export default function Orders() {
+export default function OrdersPage() {
     const httpClient = useAxiosClient();
 
     const { isPending, error, data } = useQuery({

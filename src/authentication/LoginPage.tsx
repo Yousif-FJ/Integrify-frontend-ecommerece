@@ -2,12 +2,12 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { AuthSetterContext } from "../App";
-import LoginRequest from "../types/LoginRequest";
+import LoginRequest from "./LoginRequest.type";
 import { useAxiosClient } from "../utils/axiosClient"
-import AuthUser from "../types/AuthUser";
+import AuthUser from "./AuthUser.type";
 
 
-export default function Login() {
+export default function LoginPage() {
 
   const navigate = useNavigate();
   const httpClient = useAxiosClient();

@@ -2,14 +2,14 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query";
 
 import { useAxiosClient } from "../utils/axiosClient"
-import Product from "../types/Product";
+import product from "./product.type";
 import { useContext } from "react";
 import { CartContext, CartSetterContext } from "../App";
-import CartItem from "../types/CartItem";
+import CartItem from "../cart/CartItem.type";
 import { queryClientConfig } from "../utils/queryClientConfig";
 
 
-export default function ProductDetails() {
+export default function ProductDetailsPage() {
 
     const httpClient = useAxiosClient();
 
@@ -22,7 +22,7 @@ export default function ProductDetails() {
         },
     }, queryClientConfig);
 
-    const product = data as Product;
+    const product = data as product;
 
 
     const cartState = useContext(CartContext);

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext, AuthSetterContext } from "../App";
 
-export default function NavBar() {
+export default function RenderNavBar() {
 
     const authState = useContext(AuthContext);
 

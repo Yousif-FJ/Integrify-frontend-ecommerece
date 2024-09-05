@@ -8,13 +8,13 @@ import {
 import App from './App.tsx'
 import './index.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Home from './pages/Home.tsx';
-import Login from './pages/Login.tsx';
-import Register from './pages/Register.tsx';
-import Orders from './pages/Orders.tsx';
-import ProductDetails from './pages/ProductDetails.tsx';
-import Cart from './pages/Cart.tsx';
-import Users from './pages/Users.tsx';
+import HomePage from './products/ProductsPage.tsx';
+import Login from './authentication/LoginPage.tsx';
+import RegisterPage from './authentication/RegisterPage.tsx';
+import OrdersPage from './orders/OrdersPage.tsx';
+import ProductDetailsPage from './products/ProductDetailsPage.tsx';
+import CartPage from './cart/CartPage.tsx';
+import UsersPage from './users/UsersPage.tsx';
 
 
 const router = createBrowserRouter([
@@ -24,11 +24,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home></Home>
+        element: <HomePage></HomePage>
       },
       {
         path: "products/:productId",
-        element: <ProductDetails></ProductDetails>
+        element: <ProductDetailsPage></ProductDetailsPage>
       },
       {
         path: "login",
@@ -36,19 +36,19 @@ const router = createBrowserRouter([
       },
       {
         path: "register",
-        element: <Register></Register>
+        element: <RegisterPage></RegisterPage>
       },
       {
         path: "orders",
-        element: <Orders></Orders>
+        element: <OrdersPage></OrdersPage>
       },
       {
         path: "users",
-        element: <Users></Users>
+        element: <UsersPage></UsersPage>
       },
       {
         path: "cart",
-        element: <Cart></Cart>
+        element: <CartPage></CartPage>
       }
     ]
   },
