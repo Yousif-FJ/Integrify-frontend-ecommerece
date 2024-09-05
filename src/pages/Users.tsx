@@ -33,7 +33,7 @@ function RenderUsers({ setUserBeingEdited }:
                 queryKey: ['users']
             })
         }
-    });
+    }, queryClient);
 
     const { isPending, error, data } = useQuery({
         queryKey: ['users'], queryFn: async () => {
@@ -88,7 +88,7 @@ function RenderEditUser({ user, setUserBeingEdited }:
                 queryKey: ['users']
             })
         })
-    })
+    }, queryClient)
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');

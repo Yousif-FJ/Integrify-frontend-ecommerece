@@ -6,6 +6,7 @@ import Product from "../types/Product";
 import { useContext } from "react";
 import { CartContext, CartSetterContext } from "../App";
 import CartItem from "../types/CartItem";
+import { queryClientConfig } from "../utils/queryClientConfig";
 
 
 export default function ProductDetails() {
@@ -19,7 +20,7 @@ export default function ProductDetails() {
             const result = await httpClient.get(`products/${productId}`);
             return result.data;
         },
-    });
+    }, queryClientConfig);
 
     const product = data as Product;
 

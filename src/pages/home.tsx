@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Product from "../types/Product"
 import { useAxiosClient } from "../utils/axiosClient"
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { queryClientConfig } from "../utils/queryClientConfig";
 
 
 export default function Home() {
@@ -18,8 +19,8 @@ export default function Home() {
                 params: { "searchValue": search }
             });
             return result.data;
-        }
-    });
+        },
+    }, queryClientConfig);
 
     const products = data as Product[];
 
