@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import product from "./product.type";
+import Product from "./Product.type";
 
-export default function RenderProducts({ products, isPending, error }: { products: product[], isPending: boolean, error: Error | null }) {
+export default function RenderProducts({ products, isPending, error }: { products: Product[], isPending: boolean, error: Error | null }) {
 
     if (isPending) {
         return <p>Loading...</p>
@@ -30,7 +30,7 @@ export default function RenderProducts({ products, isPending, error }: { product
                                 {product.name}
                             </Link>
                         </h3>
-                        <p className="mt-1 text-sm text-gray-500">Large</p>
+                        <p className="mt-1 text-sm text-gray-500"></p>
                     </div>
                     <p className="text-sm font-medium text-gray-900">{product.price}</p>
                 </div>

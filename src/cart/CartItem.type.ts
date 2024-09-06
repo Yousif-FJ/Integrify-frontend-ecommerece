@@ -1,7 +1,7 @@
-import product from "../products/product.type";
+import Product from "../products/Product.type";
 
 type CartItem = {
-    product: product,
+    product: Product,
     quantity: number
 }
 
