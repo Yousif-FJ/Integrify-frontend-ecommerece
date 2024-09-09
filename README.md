@@ -5,6 +5,15 @@ The current template tech stack: React, TypeScript, Tailwind, Shadcn, tanstack/r
 # Backend for E-commerce
 https://github.com/Yousif-FJ/Integrify-backend-ecommerece
 
+
+# Deployed version links
+Frontend: https://ecommerce-integrify.netlify.app/
+Backend: https://integrify-backend-ecommerece.onrender.com/api/
+
+Admin user:
+admin@example.com
+password
+
 ### General requirements
 
 **Pages to Create:**
