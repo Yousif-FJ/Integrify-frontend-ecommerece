@@ -10,7 +10,7 @@ let baseURL;
 if (isDevelopment) {
   baseURL = 'http://localhost:8080/api/'
 }else{
-  //put production URL
+  baseURL = 'https://integrify-backend-ecommerece.onrender.com'
 }
 
 const axiosClient = axios.create({
