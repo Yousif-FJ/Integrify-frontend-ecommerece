@@ -4,7 +4,6 @@ import { useAxiosClient } from "../utils/useAxiosClient"
 import Product from "./Product.type";
 import React, { useContext } from "react";
 import CartItem from "../cart/CartItem.type";
-import { queryClientConfig } from "../utils/queryClientConfig";
 import { CartStateContext } from "../cart/CartPage";
 
 
@@ -19,7 +18,7 @@ export default function ProductDetailsPage() {
             const result = await httpClient.get(`products/${productId}`);
             return result.data;
         },
-    }, queryClientConfig);
+    });
 
     const product = data as Product;
 

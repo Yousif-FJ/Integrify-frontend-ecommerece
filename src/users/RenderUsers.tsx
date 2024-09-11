@@ -6,7 +6,7 @@ export default function RenderUsers({ setUserBeingEdited }:
     { setUserBeingEdited: (user: User) => void }
 ) {
     const httpClient = useAxiosClient();
-    const queryClient = useQueryClient()
+    const queryClient = useQueryClient();
 
 
     const deleteUserMutation = useMutation({
@@ -15,7 +15,7 @@ export default function RenderUsers({ setUserBeingEdited }:
         },
         onSuccess: async () => {
             queryClient.invalidateQueries({
-                queryKey: ['users']
+                queryKey : ['users']
             })
         }
     }, queryClient);
@@ -25,7 +25,7 @@ export default function RenderUsers({ setUserBeingEdited }:
             const result = await httpClient.get("users");
             return result.data;
         }
-    });
+    }, queryClient);
 
     const users = data as User[];
 

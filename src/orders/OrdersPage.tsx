@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAxiosClient } from "../utils/useAxiosClient";
 import Order from "./Order.type";
-import { queryClientConfig } from "../utils/queryClientConfig";
 
 export default function OrdersPage() {
     const httpClient = useAxiosClient();
@@ -11,7 +10,7 @@ export default function OrdersPage() {
             const result = await httpClient.get("orders");
             return result.data;
         }
-    }, queryClientConfig);
+    });
 
     const orders = data as Order[];
 

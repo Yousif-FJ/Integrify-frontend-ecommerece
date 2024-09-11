@@ -2,7 +2,6 @@ import { useMutation } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import CreateOrderRequest from "./CreateOrderRequest.type";
 import { useAxiosClient } from "../utils/useAxiosClient";
-import { queryClientConfig } from "../utils/queryClientConfig";
 import { CartStateContext } from "./CartPage";
 
 export default function RenderCreateOrder({ showOrderForm, setShowOrderFrom } :
@@ -29,7 +28,7 @@ export default function RenderCreateOrder({ showOrderForm, setShowOrderFrom } :
            setCart([]);
            setShowOrderFrom(false);
        })
-   }, queryClientConfig)
+   })
 
 
    const [city, setCity] = useState('');

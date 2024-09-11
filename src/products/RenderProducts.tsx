@@ -1,7 +1,22 @@
 import { Link } from "react-router-dom";
 import Product from "./Product.type";
+import { useQuery } from "@tanstack/react-query";
+import { useAxiosClient } from "../utils/useAxiosClient";
 
-export default function RenderProducts({ products, isPending, error }: { products: Product[], isPending: boolean, error: Error | null }) {
+export default function RenderProducts({ search }: { search: string }) {
+    const httpClient = useAxiosClient();
+
+    const { isPending, error, data } = useQuery({
+        queryKey: ['products', {search : search}], queryFn: async () => {
+            const result = await httpClient.get("products", {
+                params: { "searchValue": search }
+            });
+            return result.data;
+        },
+    });
+
+    const products = data as Product[];
+
 
     if (isPending) {
         return <p>Loading...</p>
@@ -11,7 +26,6 @@ export default function RenderProducts({ products, isPending, error }: { product
         console.log(error);
         return <p> an error occurred</p>
     }
-
 
     return <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
         {products.map((product) => (
