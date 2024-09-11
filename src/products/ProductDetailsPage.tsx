@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query";
 import { useAxiosClient } from "../utils/useAxiosClient"
 import Product from "./Product.type";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import CartItem from "../cart/CartItem.type";
 import { queryClientConfig } from "../utils/queryClientConfig";
 import { CartStateContext } from "../cart/CartPage";
@@ -25,6 +25,18 @@ export default function ProductDetailsPage() {
 
 
     const [cart, setCart] = useContext(CartStateContext);
+
+    function handleAddItemToCart(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const cartItem = cart.find(item => item.product.id == product.id);
+        if (cartItem === undefined) {
+            const newCartItem : CartItem = {product : product, quantity: 1};
+            setCart([...cart, newCartItem])  
+        }else{
+            cartItem.quantity += 1;
+        }
+        alert("item added");
+    }
 
     if (isPending) {
         return <p>Loading...</p>
@@ -62,17 +74,7 @@ export default function ProductDetailsPage() {
                             </div>
                         </div>
 
-                        <form onSubmit={(e)=>{
-                            e.preventDefault();
-                            const cartItem = cart.find(item => item.product.id == product.id);
-                            if (cartItem === undefined) {
-                                const newCartItem : CartItem = {product : product, quantity: 1};
-                                setCart([...cart, newCartItem])  
-                            }else{
-                                cartItem.quantity += 1;
-                            }
-                            alert("item added");
-                        }}>
+                        <form onSubmit={handleAddItemToCart}>
                             <button
                                 type="submit"
                                 className="mt-2 flex items-center justify-center rounded-md border

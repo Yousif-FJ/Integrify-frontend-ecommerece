@@ -16,6 +16,20 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const loginRequest: LoginRequest = { email: email, password: password };
+    try {
+      const response = await httpClient.post("users/login", loginRequest);
+      const data = response.data as AuthUser;
+      setAuthState(data);
+      navigate("/")
+    } catch {
+      alert("login failed");
+    }
+  } 
+  
+
   return <>
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -25,18 +39,7 @@ export default function LoginPage() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" onSubmit={async (e) => {
-          e.preventDefault();
-          const loginRequest: LoginRequest = { email: email, password: password };
-          try {
-            const response = await httpClient.post("users/login", loginRequest);
-            const data = response.data as AuthUser;
-            setAuthState(data);
-            navigate("/")
-          } catch {
-            alert("login failed");
-          }
-        }}>
+        <form className="space-y-6" onSubmit={handleLogin}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
               Email address
