@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 import AuthUser from './authentication/AuthUser.type';
 import RenderNavBar from './common/RenderNavBar';
 import CartItem from './cart/CartItem.type';
+import { CartStateContext } from './cart/CartPage';
 
 
 export const AuthContext = createContext<AuthUser>({});
@@ -19,9 +20,6 @@ function getInitialAuthState() {
     return {};
   }
 }
-
-export const CartContext = createContext<CartItem[]>([]);
-export const CartSetterContext = createContext<React.Dispatch<React.SetStateAction<CartItem[]>>>(() => { });
 
 
 function getInitialCartState() {
@@ -42,7 +40,7 @@ function App() {
     localStorage.setItem('authState', JSON.stringify(authState));
   }, [authState]);
 
-  const [cartState, setCartState] = useState<CartItem[]>(getInitialCartState());
+  const cartState = useState<CartItem[]>(getInitialCartState());
 
   useEffect(() => {
     localStorage.setItem('cartState', JSON.stringify(cartState));
@@ -53,16 +51,14 @@ function App() {
       <AuthContext.Provider value={authState}>
         <AuthSetterContext.Provider value={setAuthState}>
 
-          <CartContext.Provider value={cartState}>
-            <CartSetterContext.Provider value={setCartState}>
+            <CartStateContext.Provider value={cartState}>
 
               <RenderNavBar />
               <div className='mx-auto max-w-2xl px-4 py-5 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8'>
                 <Outlet />
               </div>
 
-            </CartSetterContext.Provider>
-          </CartContext.Provider>
+            </CartStateContext.Provider>
 
         </AuthSetterContext.Provider>
       </AuthContext.Provider>

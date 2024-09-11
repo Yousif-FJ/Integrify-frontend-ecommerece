@@ -1,30 +1,32 @@
-import { useContext, useMemo, useState } from "react"
-import { AuthContext, CartContext, CartSetterContext } from "../App"
+import { createContext, useContext, useMemo, useState } from "react"
+import { AuthContext } from "../App"
 import { useNavigate } from "react-router-dom";
 import RenderCartItem from "./RenderCartItem";
 import RenderCreateOrder from "./RenderCreateOrder";
+import CartItem from "./CartItem.type";
 
 export default function CartPage() {
-    const cartState = useContext(CartContext);
-    const cartStateSetter = useContext(CartSetterContext)
+    const [cart, setCart] = useContext(CartStateContext);
+
     const authState = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [showOrderForm, setShowOrderFrom] = useState(false);
+    
 
     const removeCartItem = (productId : string) => {
-        cartStateSetter(cartState.filter(ci => ci.product.id !== productId));
+        setCart(cart.filter(ci => ci.product.id !== productId));
     }
 
     const cartTotal = useMemo(() =>
     {
         let total = 0
-        cartState.forEach((item) =>{
+        cart.forEach((item) =>{
             total+= item.product.price * item.quantity;
         });
 
         return total;
-    }, [cartState])
+    }, [cart])
 
     return <div>
         <div className="pointer-events-none inset-y-0 right-0 flex max-w-full pl-10">
@@ -41,7 +43,7 @@ export default function CartPage() {
                         <div className="mt-8">
                             <div className="flow-root">
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                    {cartState.map((cartItem) => RenderCartItem({cartItem, removeCartItem}))}
+                                    {cart.map((cartItem) => RenderCartItem({cartItem, removeCartItem}))}
                                 </ul>
                             </div>
                         </div>
@@ -73,3 +75,6 @@ export default function CartPage() {
         {RenderCreateOrder({showOrderForm, setShowOrderFrom})}
     </div>
 }
+
+
+export const CartStateContext = createContext<[CartItem[],React.Dispatch<React.SetStateAction<CartItem[]>>]>(null!);

@@ -1,20 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
 import { useContext, useState } from "react";
-import { CartContext, CartSetterContext } from "../App";
 import CreateOrderRequest from "./CreateOrderRequest.type";
 import { useAxiosClient } from "../utils/useAxiosClient";
 import { queryClientConfig } from "../utils/queryClientConfig";
+import { CartStateContext } from "./CartPage";
 
 export default function RenderCreateOrder({ showOrderForm, setShowOrderFrom } :
     { showOrderForm : boolean, setShowOrderFrom: (value :boolean) => void }) {
    const httpClient = useAxiosClient();
-   const cartState = useContext(CartContext);
-   const cartStateSetter = useContext(CartSetterContext);
-
+   const [cart, setCart] = useContext(CartStateContext);
 
    const createOrderMutator = useMutation({
        mutationFn: () => {
-           const productsId : string[] = cartState.flatMap(cartElement => {
+           const productsId : string[] = cart.flatMap(cartElement => {
                const idsListPart : string[] = [];
                for (let index = 0; index < cartElement.quantity; index++) {
                    idsListPart.push(cartElement.product.id);
@@ -28,7 +26,7 @@ export default function RenderCreateOrder({ showOrderForm, setShowOrderFrom } :
        },
        onSuccess: (async () =>{
            alert("Order created");
-           cartStateSetter([]);
+           setCart([]);
            setShowOrderFrom(false);
        })
    }, queryClientConfig)

@@ -1,12 +1,11 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query";
-
 import { useAxiosClient } from "../utils/useAxiosClient"
 import Product from "./Product.type";
 import { useContext } from "react";
-import { CartContext, CartSetterContext } from "../App";
 import CartItem from "../cart/CartItem.type";
 import { queryClientConfig } from "../utils/queryClientConfig";
+import { CartStateContext } from "../cart/CartPage";
 
 
 export default function ProductDetailsPage() {
@@ -25,8 +24,7 @@ export default function ProductDetailsPage() {
     const product = data as Product;
 
 
-    const cartState = useContext(CartContext);
-    const cartSetter = useContext(CartSetterContext);
+    const [cart, setCart] = useContext(CartStateContext);
 
     if (isPending) {
         return <p>Loading...</p>
@@ -66,10 +64,10 @@ export default function ProductDetailsPage() {
 
                         <form onSubmit={(e)=>{
                             e.preventDefault();
-                            const cartItem = cartState.find(item => item.product.id == product.id);
+                            const cartItem = cart.find(item => item.product.id == product.id);
                             if (cartItem === undefined) {
                                 const newCartItem : CartItem = {product : product, quantity: 1};
-                                cartSetter([...cartState, newCartItem])  
+                                setCart([...cart, newCartItem])  
                             }else{
                                 cartItem.quantity += 1;
                             }
